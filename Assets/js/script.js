@@ -39,7 +39,7 @@ let businessHours = {
 
       // create the hour to display in AM/PM
       let hour = document.createElement('div');
-      hour.setAttribute('class', 'col-2 col-md1 hour text-center py-3');
+      hour.setAttribute('class', 'col-2 col-md-1 hour text-center py-3');
       let hourText = i;
       let am_pm = "AM";
   
