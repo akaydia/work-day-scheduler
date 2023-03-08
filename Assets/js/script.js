@@ -81,17 +81,28 @@ $(document).ready(function () {
     } // for 9-5
   } // createTimeBlocks
 
+  // returns an object containing the start and end time of the hour
+  function getTimeRange(hour) {
+    const start = new Date();
+    start.setHours(hour, 0, 0, 0);
+    const end = new Date();
+    end.setHours(hour + 1, 0, 0, 0);
+    return { start, end };
+  }
+
   // applying 'past', 'present' and 'future' classes depending on the current time vs timeblock
   function applyTimeClasses() {
-    let currentHour = new Date().getHours();
-    let timeBlocks = document.querySelectorAll('.time-block');
-
-    timeBlocks.forEach(timeBlock => {
-      let hour = timeBlock.id.split('-')[1];
-      if (hour < currentHour) {
-        timeBlock.classList.add('past');
-      } else if (hour === currentHour) {
+    const timeBlocks = document.querySelectorAll('.time-block');
+    const currentHour = new Date().getHours();
+  
+    timeBlocks.forEach((timeBlock) => {
+      const hour = parseInt(timeBlock.id.split('-')[1]);
+      const timeRange = getTimeRange(hour);
+  
+      if (timeRange.start <= new Date() && new Date() < timeRange.end) {
         timeBlock.classList.add('present');
+      } else if (hour < currentHour) {
+        timeBlock.classList.add('past');
       } else {
         timeBlock.classList.add('future');
       }
